@@ -1,15 +1,20 @@
 import { create } from 'zustand';
+import { nanoid } from 'nanoid';
 
 export const useRecipeStore = create((set) => ({
   recipes: [],
-
-  // Adds a single recipe
-  addRecipe: (newRecipe) =>
+  addRecipe: (recipe) =>
     set((state) => ({
-      recipes: [...state.recipes, newRecipe],
+      recipes: [...state.recipes, { ...recipe, id: nanoid() }],
     })),
-
-  // Sets or replaces the entire recipes array
-  setRecipes: (newRecipes) => set({ recipes: newRecipes }),
+  deleteRecipe: (id) =>
+    set((state) => ({
+      recipes: state.recipes.filter((recipe) => recipe.id !== id),
+    })),
+  updateRecipe: (updatedRecipe) =>
+    set((state) => ({
+      recipes: state.recipes.map((recipe) =>
+        recipe.id === updatedRecipe.id ? updatedRecipe : recipe
+      ),
+    })),
 }));
-
