@@ -1,55 +1,34 @@
+// src/components/recipeStore.js
 import { create } from 'zustand';
 
 const useRecipeStore = create((set) => ({
+  // Previously used
   recipes: [],
-  filteredRecipes: [],
   searchTerm: '',
+  setRecipes: (recipes) => set({ recipes }),
+  setSearchTerm: (term) => set({ searchTerm: term }),
 
-  setRecipes: (newRecipes) => set((state) => ({
-    recipes: newRecipes,
-    filteredRecipes: newRecipes.filter(r =>
-      r.title.toLowerCase().includes(state.searchTerm.toLowerCase())
-    )
-  })),
+  // ✅ Favorites & Recommendations
+  favorites: [],
+  recommendations: [],
 
-  addRecipe: (recipe) => set((state) => {
-    const newRecipes = [...state.recipes, recipe];
-    return {
-      recipes: newRecipes,
-      filteredRecipes: newRecipes.filter(r =>
-        r.title.toLowerCase().includes(state.searchTerm.toLowerCase())
-      )
-    };
-  }),
+  addFavorite: (id) =>
+    set((state) => ({
+      favorites: [...new Set([...state.favorites, id])],
+    })),
 
-  deleteRecipe: (id) => set((state) => {
-    const newRecipes = state.recipes.filter(r => r.id !== id);
-    return {
-      recipes: newRecipes,
-      filteredRecipes: newRecipes.filter(r =>
-        r.title.toLowerCase().includes(state.searchTerm.toLowerCase())
-      )
-    };
-  }),
+  removeFavorite: (id) =>
+    set((state) => ({
+      favorites: state.favorites.filter((favId) => favId !== id),
+    })),
 
-  updateRecipe: (updated) => set((state) => {
-    const updatedRecipes = state.recipes.map((r) =>
-      r.id === updated.id ? updated : r
-    );
-    return {
-      recipes: updatedRecipes,
-      filteredRecipes: updatedRecipes.filter(r =>
-        r.title.toLowerCase().includes(state.searchTerm.toLowerCase())
-      )
-    };
-  }),
-
-  setSearchTerm: (term) => set((state) => ({
-    searchTerm: term,
-    filteredRecipes: state.recipes.filter(recipe =>
-      recipe.title.toLowerCase().includes(term.toLowerCase())
-    )
-  }))
+  generateRecommendations: () =>
+    set((state) => {
+      const recommended = state.recipes.filter(
+        (r) => state.favorites.includes(r.id) && Math.random() > 0.5
+      );
+      return { recommendations: recommended };
+    }),
 }));
 
 export default useRecipeStore;
