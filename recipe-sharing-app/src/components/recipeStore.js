@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-const recipeStore = create((set) => ({
+const useRecipeStore = create((set) => ({
   recipes: [],
   filteredRecipes: [],
   searchTerm: '',
@@ -52,4 +52,4 @@ const recipeStore = create((set) => ({
   }))
 }));
 
-export default recipeStore;
+export default useRecipeStore;

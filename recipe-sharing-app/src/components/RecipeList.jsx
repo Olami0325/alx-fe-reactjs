@@ -1,7 +1,8 @@
 // src/components/RecipeList.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import useRecipeStore from '../store/useRecipeStore';
+import useRecipeStore from './recipeStore'; // if from components folder
+
 
 const RecipeList = () => {
   const filteredRecipes = useRecipeStore((state) => state.filteredRecipes);
