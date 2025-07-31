@@ -1,17 +1,15 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 const useRecipeStore = create((set) => ({
   recipes: [],
   favorites: [],
-  searchTerm: "",
+  searchTerm: '',
+  recommendations: [],
 
-  // Add recipe
+  // CRUD operations
   addRecipe: (recipe) =>
-    set((state) => ({
-      recipes: [...state.recipes, recipe],
-    })),
+    set((state) => ({ recipes: [...state.recipes, recipe] })),
 
-  // Update recipe
   updateRecipe: (updatedRecipe) =>
     set((state) => ({
       recipes: state.recipes.map((r) =>
@@ -19,27 +17,31 @@ const useRecipeStore = create((set) => ({
       ),
     })),
 
-  // Delete recipe
   deleteRecipe: (id) =>
     set((state) => ({
       recipes: state.recipes.filter((r) => r.id !== id),
-      favorites: state.favorites.filter((fid) => fid !== id), // remove from favorites too
+      favorites: state.favorites.filter((fid) => fid !== id),
+      recommendations: state.recommendations.filter((rec) => rec.id !== id),
     })),
 
-  // Set search term
+  // For setting fetched data
+  setRecipes: (recipes) => set({ recipes }),
+
+  // Search
   setSearchTerm: (term) => set({ searchTerm: term }),
 
-  // Add to favorites
+  // Favorites
   addFavorite: (id) =>
     set((state) => ({
-      favorites: [...state.favorites, id],
+      favorites: [...new Set([...state.favorites, id])],
     })),
-
-  // Remove from favorites
   removeFavorite: (id) =>
     set((state) => ({
-      favorites: state.favorites.filter((fid) => fid !== id),
+      favorites: state.favorites.filter((favId) => favId !== id),
     })),
+
+  // Recommendations
+  setRecommendations: (recs) => set({ recommendations: recs }),
 }));
 
 export default useRecipeStore;

@@ -19,10 +19,9 @@ function App() {
           <Routes>
             <Route path="/" element={<RecipeList />} />
             <Route path="/recipes/:id" element={<RecipeDetails />} />
+            <Route path="/favorites" element={<FavoritesList />} />
+            <Route path="/recommendations" element={<RecommendationsList />} />
           </Routes>
-          {/* ✅ Add new features (optional display at bottom) */}
-          <FavoritesList />
-          <RecommendationsList />
         </div>
       </Router>
       {/* <div style={{ maxWidth: "600px", margin: "0 auto", padding: "2rem" }}>
