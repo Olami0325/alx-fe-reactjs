@@ -1,18 +1,55 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
-export const useRecipeStore = create((set) => ({
+const recipeStore = create((set) => ({
   recipes: [],
-  setRecipes: (recipes) => set({ recipes }), // Required by checker
-  addRecipe: (recipe) =>
-    set((state) => ({ recipes: [...state.recipes, recipe] })),
-  updateRecipe: (updatedRecipe) =>
-    set((state) => ({
-      recipes: state.recipes.map((recipe) =>
-        recipe.id === updatedRecipe.id ? updatedRecipe : recipe
-      ),
-    })),
-  deleteRecipe: (id) =>
-    set((state) => ({
-      recipes: state.recipes.filter((recipe) => recipe.id !== id),
-    })),
+  filteredRecipes: [],
+  searchTerm: '',
+
+  setRecipes: (newRecipes) => set((state) => ({
+    recipes: newRecipes,
+    filteredRecipes: newRecipes.filter(r =>
+      r.title.toLowerCase().includes(state.searchTerm.toLowerCase())
+    )
+  })),
+
+  addRecipe: (recipe) => set((state) => {
+    const newRecipes = [...state.recipes, recipe];
+    return {
+      recipes: newRecipes,
+      filteredRecipes: newRecipes.filter(r =>
+        r.title.toLowerCase().includes(state.searchTerm.toLowerCase())
+      )
+    };
+  }),
+
+  deleteRecipe: (id) => set((state) => {
+    const newRecipes = state.recipes.filter(r => r.id !== id);
+    return {
+      recipes: newRecipes,
+      filteredRecipes: newRecipes.filter(r =>
+        r.title.toLowerCase().includes(state.searchTerm.toLowerCase())
+      )
+    };
+  }),
+
+  updateRecipe: (updated) => set((state) => {
+    const updatedRecipes = state.recipes.map((r) =>
+      r.id === updated.id ? updated : r
+    );
+    return {
+      recipes: updatedRecipes,
+      filteredRecipes: updatedRecipes.filter(r =>
+        r.title.toLowerCase().includes(state.searchTerm.toLowerCase())
+      )
+    };
+  }),
+
+  setSearchTerm: (term) => set((state) => ({
+    searchTerm: term,
+    filteredRecipes: state.recipes.filter(recipe =>
+      recipe.title.toLowerCase().includes(term.toLowerCase())
+    )
+  }))
 }));
+
+export default recipeStore;
