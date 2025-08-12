@@ -5,13 +5,15 @@ import AddRecipeForm from "./components/AddRecipeForm";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/recipe/:id" element={<RecipeDetail />} />
-        <Route path="/add" element={<AddRecipeForm/>}/>
-      </Routes>
-    </Router>
+    <div className="min-h-screen flex items-center justify-center  bg-gray-100">
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/recipe/:id" element={<RecipeDetail />} />
+          <Route path="/add" element={<AddRecipeForm />} />
+        </Routes>
+      </Router>
+    </div>
   );
 }
 
