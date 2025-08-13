@@ -1,50 +1,36 @@
-
 import React, { useState, useEffect } from "react";
-import data from "../data.json";
 import { Link } from "react-router-dom";
+import recipesData from "../data.json"; 
 
-const HomePage = () => {
+export default function HomePage() {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    setRecipes(data);
+    // Load recipes from local data.json
+    setRecipes(recipesData);
   }, []);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8 text-center">
-        Recipe Sharing Platform
-      </h1>
+    <div className="container mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-6 text-center">Recipe List</h1>
 
-      {/* Responsive grid layout */}
-      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid gap-6 md:grid-cols-3">
         {recipes.map((recipe) => (
-          <div
-            key={recipe.id}
-            className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl hover:scale-105 transition-transform duration-300"
-          >
-            <img
-              src={recipe.image}
-              alt={recipe.title}
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4 flex flex-col justify-between h-full">
-              <div>
-                <h2 className="text-xl font-semibold mb-2">{recipe.title}</h2>
-                <p className="text-gray-600 mb-4">{recipe.summary}</p>
+          <Link key={recipe.id} to={`/recipe/${recipe.id}`}>
+            <div className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow">
+              <img
+                src={recipe.image}
+                alt={recipe.title}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h2 className="text-lg font-semibold">{recipe.title}</h2>
+                <p className="text-gray-600">{recipe.summary}</p>
               </div>
-              <Link
-                to={`/recipe/${recipe.id}`}
-                className="text-blue-500 hover:underline mt-auto"
-              >
-                View Details
-              </Link>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
   );
-};
-
-export default HomePage;
+}
