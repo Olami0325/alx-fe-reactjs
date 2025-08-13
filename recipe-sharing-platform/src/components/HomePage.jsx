@@ -1,47 +1,50 @@
+
 import React, { useState, useEffect } from "react";
+import data from "../data.json";
 import { Link } from "react-router-dom";
 
-export default function HomePage() {
-  const [recipes, setRecipes] = useState([]); // ✅ useState
+const HomePage = () => {
+  const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    fetch("/data.json") // ✅ data.json
-      .then((res) => res.json())
-      .then((data) => setRecipes(data))
-      .catch((err) => console.error(err));
-  }, []); // ✅ useEffect
+    setRecipes(data);
+  }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <h1 className="text-4xl font-bold mb-6 text-gray-800">
-        Welcome to the Recipe App
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-8 text-center">
+        Recipe Sharing Platform
       </h1>
 
-      <div className="bg-white shadow-lg p-6 max-w-lg w-full rounded-lg">
-        <p className="text-lg mb-4 text-gray-700">
-          Browse, add, and manage your recipes easily!
-        </p>
-
-        <Link
-          to="/add"
-          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
-        >
-          Add New Recipe
-        </Link>
-      </div>
-
-      {/* ✅ map usage */}
-      <div className="mt-8 w-full max-w-2xl">
-        {recipes.map((recipe, index) => (
+      {/* Responsive grid layout */}
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {recipes.map((recipe) => (
           <div
-            key={index}
-            className="bg-white shadow p-4 rounded mb-4 hover:shadow-lg transition"
+            key={recipe.id}
+            className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl hover:scale-105 transition-transform duration-300"
           >
-            <h2 className="text-2xl font-semibold mb-2">{recipe.title}</h2>
-            <p className="text-gray-600">{recipe.description}</p>
+            <img
+              src={recipe.image}
+              alt={recipe.title}
+              className="w-full h-48 object-cover"
+            />
+            <div className="p-4 flex flex-col justify-between h-full">
+              <div>
+                <h2 className="text-xl font-semibold mb-2">{recipe.title}</h2>
+                <p className="text-gray-600 mb-4">{recipe.summary}</p>
+              </div>
+              <Link
+                to={`/recipe/${recipe.id}`}
+                className="text-blue-500 hover:underline mt-auto"
+              >
+                View Details
+              </Link>
+            </div>
           </div>
         ))}
       </div>
     </div>
   );
-}
+};
+
+export default HomePage;
