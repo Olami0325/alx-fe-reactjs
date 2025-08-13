@@ -1,22 +1,26 @@
-import { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import recipeData from "../data.json";
-import RecipeCard from "./RecipeCard";
 
-function HomePage() {
-  const [recipes, setRecipes] = useState([]);
-
-  useEffect(() => {
-    setRecipes(recipeData);
-  }, []);
-
+export default function HomePage() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6">
-      {recipes.map((recipe) => (
-        <RecipeCard key={recipe.id} recipe={recipe} />
-      ))}
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+      <h1 className="text-4xl font-bold mb-6 text-gray-800 ">
+        Welcome to the Recipe App
+      </h1>
+
+      <div
+        className="bg-white shadow-lg  p-6 max-w-lg w-full rounded-lg "
+      >
+        <p className="text-lg mb-4 text-gray-700 ">
+          Browse, add, and manage your recipes easily!
+        </p>
+        <Link
+          to="/recipes"
+          className="bg-blue-500 text-white px-4 py-2 rounded-md  hover:bg-blue-600 transition"
+        >
+          View Recipes
+        </Link>
+      </div>
     </div>
   );
 }
-
-export default HomePage;
