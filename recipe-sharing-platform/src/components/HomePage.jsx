@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import data from "../data.json";
-import RecipeCard from "./RecipeCard"; 
+import RecipeCard from "./RecipeCard";
 
 const HomePage = () => {
   const [recipes, setRecipes] = useState([]);
@@ -10,7 +10,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 bg-white rounded shadow hover:shadow-lg">
       <h1 className="text-3xl font-bold mb-8 text-center">
         Recipe Sharing Platform
       </h1>
