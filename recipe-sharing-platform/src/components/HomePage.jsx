@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import data from "../data.json";
-import { Link } from "react-router-dom";
+import RecipeCard from "./RecipeCard"; 
 
 const HomePage = () => {
   const [recipes, setRecipes] = useState([]);
@@ -18,22 +18,7 @@ const HomePage = () => {
       {/* Responsive grid layout */}
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {recipes.map((recipe) => (
-          <Link
-            key={recipe.id}
-            to={`/recipe/${recipe.id}`}
-            className="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl hover:scale-105 transition-transform duration-300"
-          >
-            <img
-              src={recipe.image}
-              alt={recipe.title}
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <h2 className="text-xl font-semibold mb-2">{recipe.title}</h2>
-              <p className="text-gray-600 mb-4">{recipe.summary}</p>
-              <p className="text-blue-500 hover:underline mt-2">View Details</p>
-            </div>
-          </Link>
+          <RecipeCard key={recipe.id} recipe={recipe} />
         ))}
       </div>
     </div>
