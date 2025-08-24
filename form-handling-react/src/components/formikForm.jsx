@@ -4,12 +4,12 @@ import * as Yup from "yup";
 
 const validationSchema = Yup.object({
   username: Yup.string()
-    .min(8, "Username is required")
-    .required("Email is required"),
+    .min(8, "Username must be at least 8 characters")
+    .required("username is required"),
 
   email: Yup.string()
     .email("Invalid Email Address")
-    .required("Email is required"),
+    .required("email is required"),
 
   password: Yup.string()
     .min(6, "Password must be at least 6 characters")

@@ -1,8 +1,10 @@
 
 import React from 'react'
+
 import './App.css'
-import FormikForm from './components/formikForm'
-import RegistrationForm from './components/RegistrationForm'
+
+import RegistrationForm from './components/RegistrationForm.jsx'
+import FormikForm from './components/FormikForm.jsx'
 
 function App() {
   
