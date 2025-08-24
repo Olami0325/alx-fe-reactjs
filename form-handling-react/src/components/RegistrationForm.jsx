@@ -7,17 +7,41 @@ function RegistrationForm() {
     password: "",
   });
 
+  const [errors, setErrors] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,});
+      [name]: value,
+    });
+
+    setErrors({ ...errors, [name]: "" });
   };
 
-  const {username, email, password} = formData;
+  const { username, email, password } = formData;
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const newErrors = {};
+
+    if (!username) newErrors.username = "Username is required";
+    if (!email) newErrors.email = "Email is required";
+    if (!password) newErrors.password = "Password is required";
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
+      return; // stop submit if any field is empty
+    }
     console.log("Form Submitted", formData);
+
+    setFormData({ username: "", email: "", password: "" });
   };
   return (
     <div className="max-w-md mx-auto mt-10 p-6 border border-gray-300 rounded-lg shadow-md">
@@ -47,12 +71,12 @@ function RegistrationForm() {
           onChange={handleChange}
           className="border border-gray-800 rounded  px-3 py-2 mb-4"
         />
-        <button  type="submit"
+        <button
+          type="submit"
           className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition"
-          >
-            Submit
+        >
+          Submit
         </button>
-         
       </form>
     </div>
   );
