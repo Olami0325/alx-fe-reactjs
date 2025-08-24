@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 function RegistrationForm() {
-  const [FormData, setFormData] = useState({
+  const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
@@ -9,13 +9,13 @@ function RegistrationForm() {
 
   const handleChange = (e) => {
     setFormData({
-      ...FormData,
+      ...formData,
       [e.target.name]: e.target.value,});
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Submitted", FormData);
+    console.log("Form Submitted", formData);
   };
   return (
     <div className="max-w-md mx-auto mt-10 p-6 border border-gray-300 rounded-lg shadow-md">
@@ -25,7 +25,7 @@ function RegistrationForm() {
           type="text"
           name="username"
           placeholder="Enter Your Username"
-          value={FormData.username}
+          value={formData.username}
           onChange={handleChange}
           className="border border-gray-800 rounded  px-3 py-2 mb-4"
         />
@@ -33,7 +33,7 @@ function RegistrationForm() {
           type="text"
           name="email"
           placeholder="Enter Your Email"
-          value={FormData.email}
+          value={formData.email}
           onChange={handleChange}
           className="border border-gray-800 rounded  px-3 py-2 mb-4"
         />
@@ -41,7 +41,7 @@ function RegistrationForm() {
           type="password"
           name="password"
           placeholder="Enter Your Password"
-          value={FormData.password}
+          value={formData.password}
           onChange={handleChange}
           className="border border-gray-800 rounded  px-3 py-2 mb-4"
         />
