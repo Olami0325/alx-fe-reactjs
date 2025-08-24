@@ -13,6 +13,8 @@ function RegistrationForm() {
       [e.target.name]: e.target.value,});
   };
 
+  const {username, email, password} = formData;
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form Submitted", formData);
@@ -25,7 +27,7 @@ function RegistrationForm() {
           type="text"
           name="username"
           placeholder="Enter Your Username"
-          value={formData.username}
+          value={username}
           onChange={handleChange}
           className="border border-gray-800 rounded  px-3 py-2 mb-4"
         />
@@ -33,7 +35,7 @@ function RegistrationForm() {
           type="text"
           name="email"
           placeholder="Enter Your Email"
-          value={formData.email}
+          value={email}
           onChange={handleChange}
           className="border border-gray-800 rounded  px-3 py-2 mb-4"
         />
@@ -41,7 +43,7 @@ function RegistrationForm() {
           type="password"
           name="password"
           placeholder="Enter Your Password"
-          value={formData.password}
+          value={password}
           onChange={handleChange}
           className="border border-gray-800 rounded  px-3 py-2 mb-4"
         />
