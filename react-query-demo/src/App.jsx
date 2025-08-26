@@ -10,7 +10,7 @@ function App() {
     // client={queryClient} 
     <QueryClientProvider client={queryClient}>
       <div>
-        <h1>React Query Example</h1>
+        <h1>React Query Demo</h1>
         <PostsComponent />
       </div>
     </QueryClientProvider>
