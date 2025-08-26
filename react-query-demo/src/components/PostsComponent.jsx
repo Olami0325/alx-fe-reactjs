@@ -15,6 +15,7 @@ export default function PostsComponent() {
     isLoading,
     isError,
     error,
+    refetch,
   } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
@@ -45,6 +46,7 @@ export default function PostsComponent() {
           </li>
         ))}
       </ul>
+      <button onClick={() => refetch()}>Refetch Posts</button>
     </div>
   );
 }
