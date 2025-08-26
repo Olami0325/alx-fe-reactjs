@@ -1,32 +1,32 @@
+import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+
+//  fetchPosts 
+const fetchPosts = async () => {
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+  if (!res.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return res.json();
+};
 
 function PostsComponent() {
-  const { data, isLoading, error, refetch } = useQuery({
+  // isError 
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["posts"],
-    queryFn: async () => {
-      const response = await axios.get(
-        "https://jsonplaceholder.typicode.com/posts"
-      );
-      return response.data;
-    },
+    queryFn: fetchPosts,
   });
 
-  if (isLoading) return <p>Loading posts...</p>;
-  if (error) return <p>Error fetching posts!</p>;
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Something went wrong!</p>;
 
   return (
     <div>
-      <button onClick={() => refetch()} style={{ marginBottom: "1rem" }}>
-        🔄 Refetch Posts
-      </button>
-
+      <h2>Posts</h2>
+      <button onClick={() => refetch()}>Refetch</button>
       <ul>
         {data.map((post) => (
-          <li key={post.id} style={{ marginBottom: "0.5rem" }}>
-            <strong>{post.title}</strong>
-            <p>{post.body}</p>
-          </li>
+          <li key={post.id}>{post.title}</li>
         ))}
       </ul>
     </div>
