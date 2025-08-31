@@ -12,7 +12,8 @@ const Profile = () => {
         <Link to="settings">Profile Settings</Link>
       </nav>
 
-      {/* Outlet renders nested route content */}
+      {/* Nested routes from App.jsx will be injected here */}
+      
       <Outlet />
     </div>
   );
