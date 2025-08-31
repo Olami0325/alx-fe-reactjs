@@ -1,14 +1,17 @@
 // src/components/ProtectedRoute.jsx
-import { Navigate, Outlet } from "react-router-dom";
-import { fakeAuth } from "../auth";
+import { Navigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth"; // ✅ Using your useAuth hook
 
 const ProtectedRoute = ({ children }) => {
-  if (!fakeAuth.isAuthenticated) {
-    return <Navigate to="/" replace />;
+  const { isAuthenticated } = useAuth(); // ✅ Check if user is authenticated
+
+  if (!isAuthenticated) {
+    // User is not logged in, redirect to login page
+    return <Navigate to="/login" replace />;
   }
 
-  // If there are nested routes, render Outlet; otherwise render children
-  return children ? children : <Outlet />;
+  // User is authenticated, render the child components
+  return children;
 };
 
 export default ProtectedRoute;
