@@ -6,6 +6,8 @@ import Users from "./components/Users";
 import UserProfile from "./components/UserProfile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { fakeAuth } from "./auth";
+import BlogPost from "./components/BlogPost";
+
 
 function Home() {
   return <h2>Home Page</h2>;
@@ -69,6 +71,8 @@ function App() {
           {/* Dynamic Users */}
           <Route path="/users" element={<Users />} />
           <Route path="/users/:id" element={<UserProfile />} />
+
+          <Route path="/blog/:id" element={<BlogPost />} />
         </Routes>
       </div>
     </Router>
